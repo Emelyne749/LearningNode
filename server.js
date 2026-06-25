@@ -1,13 +1,18 @@
 const http = require('http')
+const fs = require('fs')
 
 const server = http.createServer((req, res)=>{ //Request and response are objects passed as arguments
     console.log(req.url, req.method)
 
     //Set header content type
-    res.setHeader('content-Type', 'text/html')
-    res.write('<h1>hello, Emelyne</h1>')
-    res.write('<p>hello, Emelyne</p>')
-    res.end()
+    fs.readFile('./views/index.html', (err, data)=>{
+        if(err){console.log(err)}
+        else{
+            // res.write(data)
+            res.end(data)//use end to directly send one thing
+
+        }
+    })
 })
 
 server.listen(3000, 'localhost', ()=>{
